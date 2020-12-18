@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+      integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+      crossorigin="anonymous"
+    />
+    <link href="../style/main.css" rel="stylesheet" type="text/css" />
+    <title>E-Commerce</title>
+  </head>
+  <body>
+    <header>
+      <!-- Sidenav starts-->
+      <div class="sidenav" id="sidenav">
+        <div class="sidenav__content flex-column">
+          <aside class="sidenav-close-btn" id="sidenav-close-btn"><i class="fas fa-times"></i></aside>
+          <h3 class="sidenav__header">explore</h3>
+          <ul class="sidenav__ul">
+            <li class="sidenav__li">
+              <a href="#" class="sidenav__link">home appliances</a>
+            </li>
+            <!-- Dropdown menu starts -->
+            <li class="sidenav__li dropdown" id="dropdown">
+              <div class="dropdown--toggle__container flex-row">
+                <a href="#" class="sidenav__link dropdown--toggle" id="dropdown--toggle"
+                  >computing <span class="caret" id="caret"><i class="fas fa-angle-down"></i></span
+                ></a>
+              </div>
+              <ul class="dropdown__menu hidden" id="dropdown__menu">
+                <li class="dropdown__menu__li">
+                  <a href="" class="dropdown__menu__link">laptops & macBooks</a>
+                </li>
+                <li class="dropdown__menu__li">
+                  <a href="" class="dropdown__menu__link">desktop & PC</a>
+                </li>
+                <li class="dropdown__menu__li">
+                  <a href="" class="dropdown__menu__link"><span class="lowercase">i</span>pad & tablets</a>
+                </li>
+                <li class="dropdown__menu__li">
+                  <a href="" class="dropdown__menu__link">monitors & projectors</a>
+                </li>
+                <li class="dropdown__menu__li">
+                  <a href="" class="dropdown__menu__link">data storage</a>
+                </li>
+              </ul>
+            </li>
+            <!-- /Dropdown menu ends -->
+            <li class="sidenav__li">
+              <a href="#" class="sidenav__link">sound & vision</a>
+            </li>
+            <li class="sidenav__li">
+              <a href="#" class="sidenav__link">smart tech & phones</a>
+            </li>
+            <li class="sidenav__li">
+              <a href="#" class="sidenav__link">inspiration & advice</a>
+            </li>
+          </ul>
+          <div class="sidenav__footer flex-column">
+            <a href="#" class="sidenav__link">register</a>
+            <a href="#" class="sidenav__link">sign in</a>
+          </div>
+        </div>
+      </div>
+      <!-- Navigation -->
+      <nav class="nav flex-column">
+        <div class="nav-container">
+          <div class="nav__section nav__search__container form-left hidden">
+            <form class="nav__search flex-row">
+              <input class="nav__search__input" type="text" placeholder="Search TechWorld" />
+              <button class="nav__search--submit" type="submit">Search</button>
+            </form>
+          </div>
+          <div class="nav__section container flex-row nav__header">
+            <div class="hamburger-container">
+              <a href="#" class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+              </a>
+            </div>
+            <a href="index.html" class="nav__brand">TechWorld</a>
+            <a href="#" class="nav__link">Sign in</a>
+            <div class="nav__cart">
+              <div class="nav__cart__img">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <span class="nav__cart--count"></span>
+            </div>
+          </div>
+          <div class="nav__section nav__search__container container form-right">
+            <form class="nav__search flex-row">
+              <input class="nav__search__input" type="text" placeholder="Search TechWorld" />
+              <button class="nav__search--submit" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <!-- Cart -->
+      <div class="cart">
+        <div class="cart-content container">
+          <aside class="cart-cls-btn" id="cart-cls-btn">
+            <i class="fas fa-times"></i>
+          </aside>
+          <h2 class="container">Your Cart</h2>
+          <div class="cart-item-container flex-column" id="cart-item-container"></div>
+        </div>
+        <div class="cart-summary container flex-column"></div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ======Promo section======== -->
+      <div class="promo-section">
+        <!-- Links -->
+        <div class="promo__links">
+          <div class="promo__links__cont container flex-row">
+            <div class="promo__link__container flex-row">
+              <a href="#" class="promo__link">
+                <i class="fas fa-home"></i>
+                <span class="promo__link__text"> same day delivery </span>
+              </a>
+            </div>
+            <div class="promo__link__container">
+              <a href="#" class="promo__link">
+                <i class="fas fa-landmark"></i>
+                <span class="promo__link__text"> 0% finance </span>
+              </a>
+            </div>
+            <div class="promo__link__container">
+              <a href="#" class="promo__link">
+                <i class="fas fa-gift"></i>
+                <span class="promo__link__text"> gifts </span>
+              </a>
+            </div>
+            <div class="promo__link__container">
+              <a href="#" class="promo__link">
+                <i class="fas fa-star"></i>
+                <span class="promo__link__text"> best deals </span>
+              </a>
+            </div>
+            <div class="promo__link__container">
+              <a href="#" class="promo__link">
+                <span class="promo__link__text"> all deals </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Carousel -->
+        <div class="promo">
+          <div class="promo-carousel-container">
+            <div class="promo-carousel" id="promo-carousel">
+              <div class="carousle-btn-left chevron hidden" id="carousle-btn-left">
+                <i class="fas fa-chevron-left"></i>
+              </div>
+              <div class="carousle-btn-right chevron hidden" id="carousle-btn-right">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+          <div class="promo-card-group container flex-row" id="promo-card-group"></div>
+        </div>
+      </div>
+      <!-- =========Popular/New items cards section========= -->
+      <div class="items-section">
+        <!-- popular -->
+        <div class="products-container container">
+          <h2>Popular items</h2>
+          <div class="items-categories">
+            <select class="filter-container" name="popular"></select>
+          </div>
+          <div class="product-cards grid"></div>
+          <div class="more-btn flex-row">
+            <button class="show-more-btn" id="popular-prod-btn" data-id="popular"><i class="fas fa-chevron-down"></i>&nbsp;&nbsp;Show more</button>
+          </div>
+        </div>
+        <!-- new -->
+        <div class="products-container container">
+          <h2>New items</h2>
+          <div class="items-categories">
+            <select class="filter-container" name="new"></select>
+          </div>
+          <div class="product-cards grid"></div>
+          <div class="more-btn flex-row">
+            <button class="show-more-btn" id="new-prod-btn" data-id="new"><i class="fas fa-chevron-down"></i>&nbsp;&nbsp;Show more</button>
+          </div>
+        </div>
+      </div>
+      <!-- ======Aside======= -->
+      <aside class="aside">
+        <div class="aside-container container">
+          <!-- section -->
+          <div class="aside-section flex-column">
+            <div class="aside-section__image">
+              <i class="fas fa-calendar-alt aside__returns img"></i>
+            </div>
+            <div class="aside-section__text">
+              <p>14 days returns</p>
+            </div>
+          </div>
+          <!-- section -->
+          <div class="aside-section flex-column">
+            <div class="aside-section__image">
+              <i class="fas fa-box-open aside__checks img"></i>
+            </div>
+            <div class="aside-section__text">
+              <p>Product checks in store</p>
+            </div>
+          </div>
+          <!-- section -->
+          <div class="aside-section flex-column">
+            <div class="aside-section__image">
+              <i class="fas fa-wallet aside__payment img"></i>
+            </div>
+            <div class="aside-section__text">
+              <p>Payments on delivery</p>
+            </div>
+          </div>
+          <!-- section -->
+          <div class="aside-section flex-column">
+            <div class="aside-section__image">
+              <i class="fas fa-truck aside__delivery img"></i>
+            </div>
+            <div class="aside-section__text">
+              <p>Free delivery to a store</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <!-- ======Footer====== -->
+      <footer class="footer">
+        <div class="footer-container container">
+          <!-- section -->
+          <div class="footer__section-top">
+            <div class="footer__section__subsection">
+              <h3>
+                Be the first to know<br />
+                about our promotions
+              </h3>
+              <p class="opac">
+                As well as our special deals,<br />
+                new products and other great stuff
+              </p>
+            </div>
+            <div class="footer__section__subsection footer-form">
+              <form action="#" class="newsletter flex-column">
+                <input class="newsletter__input" type="text" placeholder="Your e-mail" />
+                <button class="newsletter__submit" type="submit">Subscribe <i class="far fa-envelope"></i></button>
+              </form>
+            </div>
+          </div>
+          <!-- section -->
+          <div class="footer__section-middle">
+            <div class="footer__section__subsection call">
+              <div class="call__container">
+                <div class="call-group">
+                  <i class="fas fa-phone-alt"></i>
+                  <span class="phone-number">123456789</span>
+                </div>
+              </div>
+            </div>
+            <div class="footer__section__subsection footer__info">
+              <div class="flex-column">
+                <a href="#">Order status</a>
+                <a href="#">Contacts</a>
+                <a href="#">Delivery and payments</a>
+                <a href="#">Help</a>
+                <a href="#">Reviews</a>
+                <a href="#">Serviss Plus warranty</a>
+                <a href="#">Rules</a>
+              </div>
+              <div class="flex-column">
+                <a href="#" class="opac">Job ooportunities</a>
+                <a href="#" class="opac">Accaunt security</a>
+                <a href="#" class="opac">Returns</a>
+                <a href="#" class="opac">Goods and orders</a>
+                <a href="#" class="opac">Finance</a>
+                <a href="#" class="opac">Goods pick up</a>
+                <a href="#" class="opac">Goods insurance</a>
+                <a href="#" class="opac">Details</a>
+              </div>
+            </div>
+          </div>
+          <!-- section -->
+          <div class="footer__section-bottom">
+            <div class="footer__section__subsection social-media">
+              <div class="social-media__container">
+                <a href="#" class="opac"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="opac"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="opac"><i class="fab fa-whatsapp"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- ========Payment methods========= -->
+      <div class="footer__section-creditcards">
+        <div class="creditcards__container">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-amex"></i>
+          <i class="fab fa-cc-apple-pay"></i>
+          <i class="fab fa-alipay"></i>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="../js/main.js"></script>
+  </body>
+</html>
