@@ -1,0 +1,12 @@
+/* Media Query at 768px */
+@media screen and (min-width: 768px) {
+  .main {
+    display: grid;
+    grid-template-rows: auto auto auto;
+  }
+  .aside {
+    grid-row-start: 4;
+    grid-row-end: 5;
+    padding: 1.8em 0;
+  }
+}
