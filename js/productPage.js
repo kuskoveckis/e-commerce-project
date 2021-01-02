@@ -2,8 +2,7 @@ import * as data from "./data.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   displayProduct();
-  productDescription("touchend");
-  productDescription("click");
+  // productDescription();
 });
 
 const productsArr = data.goodsArr;
@@ -31,24 +30,70 @@ function displayProduct() {
 
 // Product description functionality
 const prodDescSection = document.querySelectorAll(".product-description");
-const techSpec = document.querySelector(".product-description");
-const prodDesc = document.querySelector(".product-description");
+const techSpec = document.querySelector(".tech");
+const prodDesc = document.querySelector(".desc");
 const prodDescBody = document.getElementById("product-description-cont");
 const techSpecBody = document.getElementById("tech-spec-desc");
 
 //! doesn't work correctly in iOS Safari
-function productDescription(ev) {
-  prodDescSection.forEach((section) => {
-    section.addEventListener(ev, (e) => {
-      const className = e.currentTarget.getAttribute("class");
-      if (className === "product-description tech") {
-        techSpecBody.classList.toggle("hidden");
-      } else if (className === "product-description desc") {
-        prodDescBody.classList.toggle("hidden");
-      }
-    });
+// function productDescription() {
+//   prodDescSection.forEach((section) => {
+//     section.addEventListener("touchend", (e) => {
+//       const className = e.currentTarget.getAttribute("class");
+//       if (className === "product-description tech") {
+//         if (techSpecBody.classList.contains("hidden")) {
+//           techSpecBody.classList.remove("hidden");
+//           section.style.backgroundColor = "#306bf5";
+//           section.style.color = "white";
+//         } else {
+//           techSpecBody.classList.add("hidden");
+//           section.style.backgroundColor = "#f7f9fc";
+//           section.style.color = "black";
+//         }
+//       } else if (className === "product-description desc") {
+//         if (prodDescBody.classList.contains("hidden")) {
+//           prodDescBody.classList.remove("hidden");
+//           section.style.backgroundColor = "#306bf5";
+//           section.style.color = "white";
+//         } else {
+//           prodDescBody.classList.add("hidden");
+//           section.style.backgroundColor = "#f7f9fc";
+//           section.style.color = "black";
+//         }
+//       }
+//     });
+//   });
+// }
+
+function productDescriptionTech() {
+  techSpec.addEventListener("touchend", (e) => {
+    if (techSpecBody.classList.contains("hidden")) {
+      techSpecBody.classList.remove("hidden");
+      techSpec.style.backgroundColor = "#306bf5";
+      techSpec.style.color = "white";
+    } else {
+      techSpecBody.classList.add("hidden");
+      techSpec.style.backgroundColor = "#f7f9fc";
+      techSpec.style.color = "black";
+    }
   });
 }
+
+function productDescriptionBody() {
+  prodDesc.addEventListener("touchend", (e) => {
+    if (prodDescBody.classList.contains("hidden")) {
+      prodDescBody.classList.remove("hidden");
+      prodDesc.style.backgroundColor = "#306bf5";
+      prodDesc.style.color = "white";
+    } else {
+      prodDescBody.classList.add("hidden");
+      prodDesc.style.backgroundColor = "#f7f9fc";
+      prodDesc.style.color = "black";
+    }
+  });
+}
+productDescriptionTech();
+productDescriptionBody();
 
 // ========== CART ===================
 //Selected Cart items to Local Storage
