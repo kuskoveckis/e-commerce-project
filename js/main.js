@@ -15,49 +15,15 @@ window.onload = () => {
 };
 
 // ================FUNCTIONS===============
-// ========================================
-// ============= Landing Page =============
-function sideNav(ev) {
-  // Sidenav
-  const sidenav = document.getElementById("sidenav");
-  const sidenavCloseBtn = document.getElementById("sidenav-close-btn");
-  const hamburger = document.getElementById("hamburger");
-  const dropdown = document.getElementById("dropdown--toggle");
-  const ddCaret = document.getElementById("caret");
-  const ddMenu = document.getElementById("dropdown__menu");
+// =============== CART ==============================
+let cartLs = [];
 
-  hamburger.addEventListener(ev, () => {
-    sidenav.style.width = "80vw";
-    sidenav.style.boxShadow = "0 0 0 1000px rgba(0,0,0,.50)";
-    document.body.classList.add("overflow");
-  });
-
-  sidenavCloseBtn.addEventListener(ev, () => {
-    sidenav.style.width = "0";
-    ddMenu.classList.add("hidden");
-    sidenav.style.boxShadow = "none";
-    document.body.classList.remove("overflow");
-  });
-  //TODO change to caret
-  dropdown.addEventListener(ev, () => {
-    if (ddMenu.classList !== "hidden") {
-      ddCaret.innerHTML = '<i class="fas fa-angle-up"></i>';
-    } else {
-      ddCaret.innerHTML = '<i class="fas fa-angle-down"></i>';
-    }
-    ddMenu.classList.toggle("hidden");
-  });
-}
-sideNav("touchend");
-// sideNav("click");
-
-// CART
 const cartItems = localStorage.getItem("cart");
 
 function blankCart() {
   const cartItemsCont = document.querySelector(".cart-item-container");
   const cartItems = localStorage.getItem("cart");
-  if (!cartItems) {
+  if (!cartItems || cartItems == []) {
     const displayEmptyCart = `<div>
                                 <p>No items in cart</p>
                               </div>`;
@@ -87,15 +53,6 @@ function cartBadge() {
   }
 }
 
-function showCart(ev) {
-  const navCart = document.querySelector(".nav__cart");
-  const cartCont = document.querySelector(".cart");
-  navCart.addEventListener(ev, () => {
-    cartCont.style.width = "100vw";
-  });
-  generateCartItems();
-}
-
 function generateCartItems() {
   const cartItemsCont = document.querySelector(".cart-item-container");
   const cartItems = localStorage.getItem("cart");
@@ -113,6 +70,7 @@ function generateCartItems() {
                      <h4 class="cart-item__model">${item.model}</h4>
                      <h4 class="cart-item__brand">${item.brand}</h4>
                      <span class="cart-item__price">${item.price} $</span>
+                     <span class="cart-item__remove-btn">remove item</span>
                    </div>
                    <div class="cart-item__amend flex-column">
                      <i class="fas fa-plus cart--add" data-prod="${item.prod}"></i>
@@ -129,6 +87,8 @@ function generateCartItems() {
     emptyCart("click");
     changeQty("touchend");
     changeQty("click");
+
+    removeCartItem("click");
   } else {
     const displayEmptyCart = `<div>
                                 <p>No items in cart</p>
@@ -211,19 +171,63 @@ function displayCartSummary(cart) {
   cartSummary.innerHTML = generateCartSummary;
 }
 
+function removeCartItem(ev) {
+  const cartSummary = document.querySelector(".cart-summary");
+  const addToCartBtn = document.querySelector(".product__action__btn");
+  const removeBtn = document.querySelectorAll(".cart-item__remove-btn");
+  const cartArr = localStorage.getItem("cart");
+  const cart = JSON.parse(cartArr).flat(2);
+  removeBtn.forEach((btn) => {
+    btn.addEventListener(ev, (e) => {
+      let prodNr = e.target.dataset.prod;
+      // remove item from cart local storage
+      let itemIndex = cart.findIndex((item) => item.prod == prodNr);
+      cart.splice(itemIndex, 1);
+      localStorage.removeItem("cart");
+      localStorage.setItem("cart", JSON.stringify(cart));
+      // remove item from cartLs array
+      let cartLsItemIndex = cartLs.findIndex((item) => item.prod == prodNr);
+      cartLs.splice(cartLsItemIndex, 1);
+      if (cart.length >= 1) {
+        generateCartItems();
+        cartBadge();
+        addToCartBtn.innerHTML = "Add to cart";
+        addToCartBtn.style.backgroundColor = "#ffd600";
+      } else {
+        localStorage.removeItem("cart");
+        cartLs.length = 0;
+        generateCartItems();
+        cartSummary.innerHTML = "";
+        cartBadge();
+        addToCartBtn.innerHTML = "Add to cart";
+        addToCartBtn.style.backgroundColor = "#ffd600";
+      }
+    });
+  });
+}
+
 function emptyCart(ev) {
   const emptyCartBtn = document.querySelector(".cart__empty");
   const cartSummary = document.querySelector(".cart-summary");
   const addToCartBtn = document.querySelector(".product__action__btn");
   emptyCartBtn.addEventListener(ev, () => {
     localStorage.removeItem("cart");
-    //cartLs.length = 0;
+    // cartLs.length = 0;
     generateCartItems();
     cartSummary.innerHTML = "";
     cartBadge();
     addToCartBtn.innerHTML = "Add to cart";
     addToCartBtn.style.backgroundColor = "#ffd600";
   });
+}
+
+function showCart(ev) {
+  const navCart = document.querySelector(".nav__cart");
+  const cartCont = document.querySelector(".cart");
+  navCart.addEventListener(ev, () => {
+    cartCont.style.width = "100vw";
+  });
+  generateCartItems();
 }
 
 function closeCart(ev) {
@@ -240,6 +244,42 @@ showCart("touchend");
 showCart("click");
 closeCart("touchend");
 closeCart("click");
+
+//============================================================================
+// ============= Landing Page =============
+
+function sideNav(ev) {
+  // Sidenav
+  const sidenav = document.getElementById("sidenav");
+  const sidenavCloseBtn = document.getElementById("sidenav-close-btn");
+  const hamburger = document.getElementById("hamburger");
+  const dropdown = document.getElementById("dropdown--toggle");
+  const ddCaret = document.getElementById("caret");
+  const ddMenu = document.getElementById("dropdown__menu");
+
+  hamburger.addEventListener(ev, () => {
+    sidenav.style.width = "80vw";
+    sidenav.style.boxShadow = "0 0 0 1000px rgba(0,0,0,.50)";
+    document.body.classList.add("overflow");
+  });
+
+  sidenavCloseBtn.addEventListener(ev, () => {
+    sidenav.style.width = "0";
+    ddMenu.classList.add("hidden");
+    sidenav.style.boxShadow = "none";
+    document.body.classList.remove("overflow");
+  });
+  //TODO change to caret
+  dropdown.addEventListener(ev, () => {
+    if (ddMenu.classList !== "hidden") {
+      ddCaret.innerHTML = '<i class="fas fa-angle-up"></i>';
+    } else {
+      ddCaret.innerHTML = '<i class="fas fa-angle-down"></i>';
+    }
+    ddMenu.classList.toggle("hidden");
+  });
+}
+sideNav("touchend");
 
 // Carousel banner
 function carouselAdv(ev) {

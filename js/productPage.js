@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const productsArr = data.goodsArr;
-
 // Display product data
 function displayProduct() {
   const prodHeading = document.querySelector(".product__header__heading");
@@ -34,36 +33,6 @@ const techSpec = document.querySelector(".tech");
 const prodDesc = document.querySelector(".desc");
 const prodDescBody = document.getElementById("product-description-cont");
 const techSpecBody = document.getElementById("tech-spec-desc");
-
-//! doesn't work correctly in iOS Safari
-// function productDescription() {
-//   prodDescSection.forEach((section) => {
-//     section.addEventListener("touchend", (e) => {
-//       const className = e.currentTarget.getAttribute("class");
-//       if (className === "product-description tech") {
-//         if (techSpecBody.classList.contains("hidden")) {
-//           techSpecBody.classList.remove("hidden");
-//           section.style.backgroundColor = "#306bf5";
-//           section.style.color = "white";
-//         } else {
-//           techSpecBody.classList.add("hidden");
-//           section.style.backgroundColor = "#f7f9fc";
-//           section.style.color = "black";
-//         }
-//       } else if (className === "product-description desc") {
-//         if (prodDescBody.classList.contains("hidden")) {
-//           prodDescBody.classList.remove("hidden");
-//           section.style.backgroundColor = "#306bf5";
-//           section.style.color = "white";
-//         } else {
-//           prodDescBody.classList.add("hidden");
-//           section.style.backgroundColor = "#f7f9fc";
-//           section.style.color = "black";
-//         }
-//       }
-//     });
-//   });
-// }
 
 function productDescriptionTech() {
   techSpec.addEventListener("touchend", (e) => {
@@ -215,6 +184,7 @@ function generateCartItems() {
                       <h4 class="cart-item__model">${item.model}</h4>
                       <h4 class="cart-item__brand">${item.brand}</h4>
                       <span class="cart-item__price">${item.price} $</span>
+                      <span class="cart-item__remove-btn" data-prod="${item.prod}">remove item</span>
                     </div>
                     <div class="cart-item__amend flex-column">
                       <i class="fas fa-plus cart--add" data-prod="${item.prod}"></i>
@@ -231,6 +201,8 @@ function generateCartItems() {
     emptyCart("click");
     changeQty("touchend");
     changeQty("click");
+
+    removeCartItem("click");
   } else {
     const displayEmptyCart = `<div>
                                  <p>No items in cart</p>
@@ -313,6 +285,41 @@ function displayCartSummary(cart) {
   cartSummary.innerHTML = generateCartSummary;
 }
 
+function removeCartItem(ev) {
+  const cartSummary = document.querySelector(".cart-summary");
+  const addToCartBtn = document.querySelector(".product__action__btn");
+  const removeBtn = document.querySelectorAll(".cart-item__remove-btn");
+  const cartArr = localStorage.getItem("cart");
+  const cart = JSON.parse(cartArr).flat(2);
+  removeBtn.forEach((btn) => {
+    btn.addEventListener(ev, (e) => {
+      let prodNr = e.target.dataset.prod;
+      // remove item from cart local storage
+      let itemIndex = cart.findIndex((item) => item.prod == prodNr);
+      cart.splice(itemIndex, 1);
+      localStorage.removeItem("cart");
+      localStorage.setItem("cart", JSON.stringify(cart));
+      // remove item from cartLs array
+      let cartLsItemIndex = cartLs.findIndex((item) => item.prod == prodNr);
+      cartLs.splice(cartLsItemIndex, 1);
+      if (cart.length >= 1) {
+        generateCartItems();
+        cartBadge();
+        addToCartBtn.innerHTML = "Add to cart";
+        addToCartBtn.style.backgroundColor = "#ffd600";
+      } else {
+        localStorage.removeItem("cart");
+        cartLs.length = 0;
+        generateCartItems();
+        cartSummary.innerHTML = "";
+        cartBadge();
+        addToCartBtn.innerHTML = "Add to cart";
+        addToCartBtn.style.backgroundColor = "#ffd600";
+      }
+    });
+  });
+}
+
 function emptyCart(ev) {
   const emptyCartBtn = document.querySelector(".cart__empty");
   const cartSummary = document.querySelector(".cart-summary");
@@ -325,23 +332,5 @@ function emptyCart(ev) {
     cartBadge();
     addToCartBtn.innerHTML = "Add to cart";
     addToCartBtn.style.backgroundColor = "#ffd600";
-  });
-}
-
-function blankCart() {
-  if (!cartItems) {
-    const displayEmptyCart = `<div>
-                                <p>No items in cart</p>
-                              </div>`;
-    cartItemsCont.innerHTML = displayEmptyCart;
-  }
-}
-
-function showCart(ev) {
-  generateCartItems();
-  const navCart = document.querySelector(".nav__cart");
-  const cartCont = document.querySelector(".cart");
-  navCart.addEventListener(ev, () => {
-    cartCont.style.width = "100vw";
   });
 }
